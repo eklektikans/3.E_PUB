@@ -487,6 +487,8 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
       <div class="oznaka-red">
         <span class="oznaka-krug veliko">${krug}. Krug</span>
         <span class="oznaka-pitanje veliko">Pitanje ${brojUKrugu} / ${poKrugu}</span>
+            ${p && p.povezi ? '<span class="oznaka-tip">Poveži: 4 pojma</span>' : ''}
+            ${p && p.dva ? '<span class="oznaka-tip">Dva odgovora</span>' : ''}
       </div>
       <div class="pitanje">${p ? p.tekst : '(pitanje nije pronađeno)'}</div>
       ${p && p.slika ? `<img onerror="this.style.display='none'" class="pitanje-slika" src="${escapeHtml(p.slika)}" alt="slika uz pitanje">` : ''}
@@ -555,6 +557,8 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
           <div class="oznaka-red" style="margin:0">
             <span class="oznaka-krug veliko">${krug}. Krug</span>
             <span class="oznaka-pitanje veliko">Pitanje ${brojUKrugu} / ${poKrugu}</span>
+            ${p && p.povezi ? '<span class="oznaka-tip">Poveži: 4 pojma</span>' : ''}
+            ${p && p.dva ? '<span class="oznaka-tip">Dva odgovora</span>' : ''}
           </div>
           <button class="btn" id="nextQ" ${trenutno>=krajRunde?'disabled':''}>Sljedeće →</button>
         </div>
