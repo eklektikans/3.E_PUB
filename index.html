@@ -161,6 +161,8 @@
   .konfeta { position:fixed; top:-3vh; width:1.2vh; height:2vh; z-index:50; pointer-events:none; animation:pad linear forwards; }
   @keyframes pad { to { transform:translateY(110vh) rotate(720deg); } }
   @media (prefers-reduced-motion:reduce){ .ek-rang.novo, .ek-rang.bubanj, .konfeta { animation:none; } }
+  .ek-uputa { font-weight:900; font-size:min(2.6vw,4.6vh); margin:1.2vh 0; padding:.8vh 1.4vw; border-left:.8vh solid var(--gold); border-radius:8px; background:rgba(242,183,5,.14); }
+  .ek-sve .ek-uputa { font-size:min(1.9vw,3.6vh); }
 </style>
 
 
@@ -491,6 +493,8 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
             ${p && p.dva ? '<span class="oznaka-tip">Dva odgovora</span>' : ''}
       </div>
       <div class="pitanje">${p ? p.tekst : '(pitanje nije pronađeno)'}</div>
+      ${p && p.povezi ? '<p style="font-size:1.45rem;font-weight:800;margin:12px 0;line-height:1.3">🔗 Poveži: ekipe upisuju 4 pojma odvojena zarezom.</p>' : ''}
+      ${p && p.dva ? '<p style="font-size:1.45rem;font-weight:800;margin:12px 0;line-height:1.3">2️⃣ Traže se dva odgovora: ekipe ih upisuju odvojene zarezom.</p>' : ''}
       ${p && p.slika ? `<img onerror="this.style.display='none'" class="pitanje-slika" src="${escapeHtml(p.slika)}" alt="slika uz pitanje">` : ''}
       ${stanje.timerKraj ? `<div class="timer">⏱ <span id="timerNum"></span></div>` :
         stanje.timerPauzaSekunde ? `<div class="timer" style="color:var(--muted)">⏸ Pauzirano — ${stanje.timerPauzaSekunde}s</div>` : ''}
@@ -563,6 +567,8 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
           <button class="btn" id="nextQ" ${trenutno>=krajRunde?'disabled':''}>Sljedeće →</button>
         </div>
         <div class="pitanje">${p?p.tekst:''}</div>
+      ${p && p.povezi ? '<p style="font-size:1.45rem;font-weight:800;margin:12px 0;line-height:1.3">🔗 Poveži: ekipe upisuju 4 pojma odvojena zarezom.</p>' : ''}
+      ${p && p.dva ? '<p style="font-size:1.45rem;font-weight:800;margin:12px 0;line-height:1.3">2️⃣ Traže se dva odgovora: ekipe ih upisuju odvojene zarezom.</p>' : ''}
         ${p && p.slika ? `<img onerror="this.style.display='none'" class="pitanje-slika malo" src="${escapeHtml(p.slika)}" alt="slika uz pitanje">` : ''}
         <div class="tacanOdg">Tačan odgovor: <b>${p?p.odgovor:''}</b></div>
         <div class="btnrow"><button class="btn primary" id="sveTacno">✓ Označi sve kao tačno</button>
@@ -702,6 +708,8 @@ function pokreniEkran(tip){
     const p = pitanja.find(x=>x.broj===n);
     return oznake(n) +
       `<div class="ek-pitanje">${p ? p.tekst : ''}</div>` +
+      (f==='aktivno' && p && p.povezi ? `<div class="ek-uputa">🔗 Poveži: upiši 4 pojma odvojena zarezom</div>` : '') +
+      (f==='aktivno' && p && p.dva ? `<div class="ek-uputa">2️⃣ Traže se DVA odgovora: upiši ih odvojene zarezom</div>` : '') +
       (p && p.slika ? `<img class="ek-slika" onerror="this.style.display='none'" src="${escapeHtml(p.slika)}" alt="slika uz pitanje">` : '') +
       (f==='pregled' && p ? `<div class="ek-tacan">Tačan odgovor: <b>${p.odgovor}</b></div>` : '');
   }
