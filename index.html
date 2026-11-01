@@ -461,11 +461,11 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
         </div>
       </div>
       <div class="btnrow" style="justify-content:center"><span style="color:var(--muted)">Ekran za projektor:</span>
-        <a class="btn primary" href="?ekran=sve&zoni" target="_blank">Sve na jednom (s upravljanjem)</a></div>
+        <a class="btn primary" href="?ekran=sve&zoni" target="_blank">Sve na jednom ekranu</a></div>
       <div class="btnrow" style="justify-content:center"><label>Vrijeme odgovora: <input id="tsec" type="number" value="${stanje.timerSekunde}" min="5" style="width:80px"></label></div>
       <div class="btnrow" style="justify-content:center">
         <button class="btn" id="urediBtn">📝 Uredi pitanja</button>
-        <button class="btn primary" id="startBtn" ${pitanja.length===0?'disabled':''}>▶ Pokreni Pitanje 1</button>
+        <button class="btn primary" id="startBtn" ${pitanja.length===0?'disabled':''}>▶ Pokreni Pitanja</button>
       </div>
     </div>`;
     document.getElementById('urediBtn').onclick = ()=>{ uredjivanje=true; crtaj(); };
@@ -845,7 +845,7 @@ function pokreniEkran(tip){
 
     if(f==='cekanje'){
       unos();
-      dugme('start', '▶ Pokreni Pitanje 1', 'primary',
+      dugme('start', '▶ Pokreni Pitanja', 'primary',
         ()=>upd({trenutnoPitanje:1, faza:'aktivno', timerSekunde:sek(), timerKraj:null, timerPauzaSekunde:null, krug:1}), pitanja.length===0);
     } else if(f==='aktivno'){
       const brojUKrugu = ((n-1) % poKrugu) + 1;
