@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pub Kviz</title>
+<script>try{var q=new URLSearchParams(location.search).get('tema');if(q==='svijetla'||q==='tamna')localStorage.setItem('pubkviz_tema',q);if(localStorage.getItem('pubkviz_tema')==='svijetla')document.documentElement.setAttribute('data-tema','svijetla');}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -29,7 +30,7 @@
     font-family:'Inter',sans-serif; font-weight:700; font-size:clamp(1.9rem,3.8vw,3.1rem); line-height:1.35;
     margin:20px 0 24px; box-shadow:0 12px 30px rgba(0,0,0,.35); text-align:center;
   }
-  .timer { font-family:'Inter',sans-serif; font-size:clamp(3.5rem,9vw,6rem); font-weight:900; color:var(--gold); margin-bottom:22px; text-align:center; }
+  .timer { font-family:'Inter',sans-serif; font-size:clamp(3.5rem,9vw,6rem); font-weight:900; color:var(--gold-ink); margin-bottom:22px; text-align:center; }
   .btn {
     padding:14px 24px; border:none; border-radius:10px; background:var(--card); border:1px solid var(--border);
     color:var(--text); font-family:'Inter',sans-serif; font-weight:700; font-size:1.05rem; cursor:pointer; margin:4px 4px 4px 0;
@@ -37,7 +38,7 @@
   }
   .btn:hover:not(:disabled) { transform:translateY(-1px); border-color:var(--gold); }
   .btn.primary { background:var(--gold); color:#171225; border-color:var(--gold); }
-  .btn.danger { background:transparent; color:var(--bad); border-color:var(--bad); }
+  .btn.danger { background:transparent; color:var(--bad-ink); border-color:var(--bad); }
   .btn.success { background:var(--ok); color:#0b2f22; border-color:var(--ok); }
   .btn:disabled { opacity:.35; cursor:default; }
   .btnrow { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:18px; }
@@ -46,7 +47,7 @@
     border:1px solid var(--border); background:var(--bg2); color:var(--text); width:100%;
   }
   textarea:focus, input:focus { outline:none; border-color:var(--gold); }
-  .poslato { background:var(--gold-dim); border:1px solid var(--gold); color:var(--gold); padding:32px 20px; border-radius:12px; font-weight:800; font-size:clamp(1.8rem,3.5vw,2.6rem); text-align:center; }
+  .poslato { background:var(--gold-dim); border:1px solid var(--gold); color:var(--gold-ink); padding:32px 20px; border-radius:12px; font-weight:800; font-size:clamp(1.8rem,3.5vw,2.6rem); text-align:center; }
   .bojegrid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
   .bojebtn { padding:26px 16px; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:1.25rem; font-weight:700; cursor:pointer; box-shadow:0 8px 18px rgba(0,0,0,.3); }
   .bojebtn:disabled { opacity:.3; }
@@ -83,21 +84,21 @@
   .ek-centar { margin:auto; text-align:center; }
   .ek-naslov { font-size:min(2vw,3.6vh); font-weight:700; color:var(--muted); }
   .ek-pitanje { font-weight:800; line-height:1.2; font-size:min(4.6vw,9vh); }
-  .ek-tacan { font-size:min(3vw,6vh); color:var(--ok); font-weight:700; }
+  .ek-tacan { font-size:min(3vw,6vh); color:var(--ok-ink); font-weight:700; }
   .ek-tacan b { color:var(--text); }
   .ek-slika { max-height:40vh; max-width:100%; border-radius:14px; object-fit:contain; align-self:center; }
   .ek-start { display:flex; align-items:center; justify-content:center; gap:3vw; text-align:left; }
   .ek-start img { height:50vh; background:#fff; padding:1.5vh; border-radius:16px; }
-  .ek-timer { font-size:min(14vw,26vh); font-weight:900; line-height:1; text-align:center; color:var(--gold); font-variant-numeric:tabular-nums; }
+  .ek-timer { font-size:min(14vw,26vh); font-weight:900; line-height:1; text-align:center; color:var(--gold-ink); font-variant-numeric:tabular-nums; }
   .ek-timer.mutan { color:var(--muted); }
   .ek-lista { display:grid; gap:1.2vh; align-content:start; }
   .ek-ekipa { display:flex; align-items:center; gap:1vw; padding:1.1vh 1.2vw; border-radius:12px; background:var(--bg2); border-left:.9vw solid var(--border); font-size:min(2.4vw,4.4vh); }
   .ek-ekipa .ime { font-weight:800; }
   .ek-ekipa .ek-odg { flex:1; min-width:0; }
   .ek-ekipa .stat { margin-left:auto; color:var(--muted); font-weight:700; }
-  .ek-ekipa.tacno { background:rgba(52,211,153,.18); } .ek-ekipa.tacno .stat { color:var(--ok); }
-  .ek-ekipa.pola { background:rgba(251,191,36,.18); } .ek-ekipa.pola .stat { color:var(--half); }
-  .ek-ekipa.netacno { background:rgba(248,113,113,.18); } .ek-ekipa.netacno .stat { color:var(--bad); }
+  .ek-ekipa.tacno { background:rgba(52,211,153,.18); } .ek-ekipa.tacno .stat { color:var(--ok-ink); }
+  .ek-ekipa.pola { background:rgba(251,191,36,.18); } .ek-ekipa.pola .stat { color:var(--half-ink); }
+  .ek-ekipa.netacno { background:rgba(248,113,113,.18); } .ek-ekipa.netacno .stat { color:var(--bad-ink); }
   .ek-ekipa.prazno { opacity:.45; }
   .ek-rang { display:flex; align-items:center; gap:1vw; padding:1.3vh 1.4vw; border-radius:12px; font-weight:800; font-size:min(2.6vw,5vh); }
   .ek-rang .mj { width:1.6em; }
@@ -118,7 +119,51 @@
   .ek-sve .ek-rang { font-size:min(2vw,3.8vh); padding:.9vh 1.2vw; }
   .ek-sve .ek-lista.dvije { grid-template-columns:1fr 1fr; }
   .ek-sve .oznaka-krug, .ek-sve .oznaka-pitanje, .ek-sve .oznaka-tip { font-size:min(1.3vw,2.4vh); }
+  /* ===== UPRAVLJANJE NA EKRANU (?ekran=sve&zoni) ===== */
+  #kontrole { position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; padding:1.2vh 2vw; background:rgba(10,7,20,.95); border-top:1px solid var(--border); transform:translateY(100%); transition:transform .25s; }
+  body.kontrole #kontrole { transform:none; }
+  #kontrole .btn { margin:0; padding:8px 14px; font-size:.95rem; }
+  #kontrole label, #kontrole .hint { color:var(--muted); font-size:.9rem; }
+  .ek-ocj { display:inline-flex; gap:.4vw; opacity:0; pointer-events:none; transition:opacity .2s; }
+  body.kontrole .ek-ocj { opacity:1; pointer-events:auto; }
+  .ek-ocj .ocj { margin:0; font-size:min(1.6vw,3vh); padding:.3vh .8vw; }
+  @media (prefers-reduced-motion:reduce){ #kontrole, .ek-ocj { transition:none; } }
+  /* ===== SVIJETLI / TAMNI MOD ===== */
+  :root { --gold-ink:var(--gold); --ok-ink:var(--ok); --half-ink:var(--half); --bad-ink:var(--bad); color-scheme:dark; }
+  :root[data-tema="svijetla"] {
+    color-scheme:light;
+    --bg:#f4f1fb; --bg2:#e9e3f7; --card:#ffffff; --border:#cdc3e6;
+    --text:#1c1630; --muted:#5b5280;
+    --gold-dim:rgba(242,183,5,.25); --gold-ink:#8a5f00;
+    --ok-ink:#087a55; --half-ink:#8a5f00; --bad-ink:#b91c1c;
+  }
+  [data-tema="svijetla"] .btn.danger { border-color:#b91c1c; }
+  [data-tema="svijetla"] .odgred, [data-tema="svijetla"] .pitanje, [data-tema="svijetla"] .ek-panel { box-shadow:0 2px 8px rgba(40,25,90,.10); }
+  [data-tema="svijetla"] .rangred, [data-tema="svijetla"] .ek-rang { box-shadow:inset 0 0 0 1px rgba(0,0,0,.15); }
+  [data-tema="svijetla"] .bojaznak { box-shadow:inset 0 0 0 1px rgba(0,0,0,.3); }
+  [data-tema="svijetla"] #kontrole { background:rgba(255,255,255,.96); }
+  #temaBtn { position:fixed; z-index:10; width:44px; height:44px; padding:0; margin:0; display:flex; align-items:center; justify-content:center; font-size:1.3rem; border-radius:50%; bottom:16px; right:16px; }
+  body.rola-nastavnik #temaBtn { top:16px; bottom:auto; right:120px; }
+  body.rola-ekran #temaBtn { top:16px; bottom:auto; right:16px; opacity:0; pointer-events:none; transition:opacity .2s; }
+  body.rola-ekran.kontrole #temaBtn { opacity:1; pointer-events:auto; }
+  /* ===== NOVO: veza, poništavanje, prijedlozi, otkrivanje ===== */
+  #vezaBanner { position:fixed; top:0; left:0; right:0; z-index:100; background:#b91c1c; color:#fff; text-align:center; font-weight:800; padding:10px 14px; font-family:'Inter',sans-serif; display:none; }
+  #undoBtn { position:fixed; left:16px; bottom:16px; z-index:30; margin:0; padding:10px 16px; font-size:.95rem; display:none; max-width:60vw; }
+  body.ekran #undoBtn { bottom:auto; top:16px; opacity:0; pointer-events:none; transition:opacity .2s; }
+  body.ekran.kontrole #undoBtn { opacity:1; pointer-events:auto; }
+  .ocj.pred { outline:2px dashed var(--gold); outline-offset:1px; }
+  .ek-rang.skriveno { background:transparent; border:3px dashed var(--border); color:var(--muted); justify-content:center; }
+  .ek-rang.bubanj { background:transparent; border:3px dashed var(--gold); color:var(--gold-ink); justify-content:center; animation:puls .5s infinite alternate; }
+  .ek-rang.novo { animation:uleti .8s cubic-bezier(.2,1.5,.4,1); }
+  .ek-rang.pobjednik { box-shadow:0 0 0 .5vh var(--gold), 0 0 5vh var(--gold); transform:scale(1.03); font-size:1.25em; }
+  @keyframes uleti { from { transform:translateY(-6vh) scale(.6); opacity:0; } to { transform:none; opacity:1; } }
+  @keyframes puls { from { opacity:.4; } to { opacity:1; } }
+  .konfeta { position:fixed; top:-3vh; width:1.2vh; height:2vh; z-index:50; pointer-events:none; animation:pad linear forwards; }
+  @keyframes pad { to { transform:translateY(110vh) rotate(720deg); } }
+  @media (prefers-reduced-motion:reduce){ .ek-rang.novo, .ek-rang.bubanj, .konfeta { animation:none; } }
 </style>
+
+
 
 </head>
 <body>
@@ -202,6 +247,35 @@ const params = new URLSearchParams(location.search);
 const EKRAN = params.get('ekran');
 const ULOGA = params.has('ekran') ? 'ekran' : ((params.has(TAJNA_RIJEC_NASTAVNIK) || params.get('rola')==='nastavnik') ? 'nastavnik' : 'ekipa');
 
+// ================== TEMA: svijetli / tamni mod ==================
+// Izbor se pamti u pregledniku. Može i preko linka: dodaj ?tema=svijetla ili ?tema=tamna
+(function(){
+  const KLJUC = 'pubkviz_tema';
+  const korijen = document.documentElement;
+  const trenutna = ()=>{ try{ return localStorage.getItem(KLJUC)==='svijetla' ? 'svijetla' : 'tamna'; }catch(e){ return 'tamna'; } };
+  document.body.classList.add('rola-' + ULOGA);
+  // projektor bez ?zoni nema dugme; tamo se tema bira linkom
+  const imaDugme = !(ULOGA==='ekran' && !params.has(TAJNA_RIJEC_NASTAVNIK));
+  let dugme = null;
+  function primijeni(t){
+    if(t==='svijetla') korijen.setAttribute('data-tema','svijetla'); else korijen.removeAttribute('data-tema');
+    if(dugme){ dugme.textContent = t==='svijetla' ? '🌙' : '☀️'; dugme.title = t==='svijetla' ? 'Tamni mod' : 'Svijetli mod'; dugme.setAttribute('aria-label', dugme.title); }
+  }
+  if(imaDugme){
+    dugme = document.createElement('button');
+    dugme.id = 'temaBtn'; dugme.className = 'btn';
+    dugme.onclick = ()=>{
+      const nova = trenutna()==='svijetla' ? 'tamna' : 'svijetla';
+      try{ localStorage.setItem(KLJUC, nova); }catch(e){}
+      primijeni(nova);
+    };
+    document.body.appendChild(dugme);
+  }
+  primijeni(trenutna());
+  // ako se tema promijeni u drugom prozoru istog preglednika (npr. nastavnik -> projektor), prati je
+  window.addEventListener('storage', e=>{ if(e.key===KLJUC) primijeni(trenutna()); });
+})();
+
 const stanjeRef = db.collection('kviz').doc('stanje');
 const timoviRef = db.collection('kviz').doc('timovi');
 const pitanjaRef = db.collection('kviz').doc('pitanja');
@@ -276,7 +350,7 @@ if(ULOGA==='nastavnik'){
     odg.forEach(d=>batch.delete(d.ref));
     await batch.commit();
     const init={}; BOJE.forEach(b=>init[b.key]=false);
-    await timoviRef.set(init);
+    await timoviRef.set(init); UNDO.length = 0; osvjeziUndo();
     await stanjeRef.set({trenutnoPitanje:0, faza:'cekanje', timerSekunde:45, timerKraj:null, timerPauzaSekunde:null, pregledPitanje:1, krug:1});
   };
   document.body.appendChild(resetBtnGlobal);
@@ -384,11 +458,8 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
           <img src="${qrSlika}" alt="QR kod za pristup kvizu" width="380" height="380" style="display:block">
         </div>
       </div>
-      <div class="btnrow" style="justify-content:center"><span style="color:var(--muted)">Ekrani za projektor:</span>
-        <a class="btn" href="?ekran=rezultati" target="_blank">Rezultati</a>
-        <a class="btn" href="?ekran=pitanje" target="_blank">Pitanje</a>
-        <a class="btn" href="?ekran=odgovori" target="_blank">Vrijeme i odgovori</a>
-        <a class="btn" href="?ekran=sve" target="_blank">Sve na jednom</a></div>
+      <div class="btnrow" style="justify-content:center"><span style="color:var(--muted)">Ekran za projektor:</span>
+        <a class="btn primary" href="?ekran=sve&zoni" target="_blank">Sve na jednom (s upravljanjem)</a></div>
       <div class="btnrow" style="justify-content:center"><label>Vrijeme odgovora: <input id="tsec" type="number" value="${stanje.timerSekunde}" min="5" style="width:80px"></label></div>
       <div class="btnrow" style="justify-content:center">
         <button class="btn" id="urediBtn">📝 Uredi pitanja</button>
@@ -398,7 +469,7 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
     document.getElementById('urediBtn').onclick = ()=>{ uredjivanje=true; crtaj(); };
     document.getElementById('startBtn').onclick = async ()=>{
       const sek = parseInt(document.getElementById('tsec').value)||45;
-      await stanjeRef.update({trenutnoPitanje:1, faza:'aktivno', timerSekunde:sek, timerKraj:null, timerPauzaSekunde:null, krug:1});
+      await upisiStanje({trenutnoPitanje:1, faza:'aktivno', timerSekunde:sek, timerKraj:null, timerPauzaSekunde:null, krug:1});
     };
   }
 
@@ -436,27 +507,27 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
     if(stanje.timerKraj) pokreniTimerPrikaz(stanje.timerKraj, 'timerNum');
     document.getElementById('startTimerBtn').onclick = async ()=>{
       const sek = parseInt(document.getElementById('tsec2').value)||stanje.timerSekunde;
-      await stanjeRef.update({timerSekunde:sek, timerKraj:Date.now()+sek*1000, timerPauzaSekunde:null});
+      await upisiStanje({timerSekunde:sek, timerKraj:Date.now()+sek*1000, timerPauzaSekunde:null});
     };
     const pauzaBtn = document.getElementById('pauzaTimerBtn');
     if(pauzaBtn) pauzaBtn.onclick = async ()=>{
       const ostatak = Math.max(0, Math.round((stanje.timerKraj - Date.now())/1000));
-      await stanjeRef.update({timerKraj:null, timerPauzaSekunde:ostatak});
+      await upisiStanje({timerKraj:null, timerPauzaSekunde:ostatak});
     };
     const nastaviBtn = document.getElementById('nastaviTimerBtn');
     if(nastaviBtn) nastaviBtn.onclick = async ()=>{
-      await stanjeRef.update({timerKraj:Date.now()+stanje.timerPauzaSekunde*1000, timerPauzaSekunde:null});
+      await upisiStanje({timerKraj:Date.now()+stanje.timerPauzaSekunde*1000, timerPauzaSekunde:null});
     };
     const prevBtn = document.getElementById('prevBtn');
     if(prevBtn) prevBtn.onclick = async ()=>{
-      await stanjeRef.update({trenutnoPitanje: stanje.trenutnoPitanje-1, timerKraj:null, timerPauzaSekunde:null});
+      await upisiStanje({trenutnoPitanje: stanje.trenutnoPitanje-1, timerKraj:null, timerPauzaSekunde:null});
     };
     document.getElementById('nextBtn').onclick = async ()=>{
       if(zadnjeUKrugu){
         const pocetakRunde = stanje.trenutnoPitanje - poKrugu + 1;
-        await stanjeRef.update({faza:'pregled', timerKraj:null, timerPauzaSekunde:null, pregledPitanje:pocetakRunde});
+        await upisiStanje({faza:'pregled', timerKraj:null, timerPauzaSekunde:null, pregledPitanje:pocetakRunde});
       } else {
-        await stanjeRef.update({trenutnoPitanje: stanje.trenutnoPitanje+1, timerKraj:null, timerPauzaSekunde:null});
+        await upisiStanje({trenutnoPitanje: stanje.trenutnoPitanje+1, timerKraj:null, timerPauzaSekunde:null});
       }
     };
   }
@@ -475,6 +546,7 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
       const odgovoriliKeys = odgovori.map(o=>o.boja);
       const nijeOdgovorilo = BOJE.filter(b=>!odgovoriliKeys.includes(b.key));
       const brOcijenjeno = odgovori.filter(o=>o.ocjena).length;
+      const brPred = odgovori.filter(o=>predlozi(p,o)).length;
       app.innerHTML = `<div class="wrap">
         <h2 style="text-align:center;margin-bottom:4px">Pregled odgovora</h2>
         <p style="text-align:center;color:var(--muted);margin:0 0 14px">Ocijenjeno ${brOcijenjeno} / ${odgovori.length} pristiglih odgovora${nijeOdgovorilo.length ? ` · ${nijeOdgovorilo.length} nije odgovorilo` : ''}</p>
@@ -489,30 +561,30 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
         <div class="pitanje">${p?p.tekst:''}</div>
         ${p && p.slika ? `<img onerror="this.style.display='none'" class="pitanje-slika malo" src="${escapeHtml(p.slika)}" alt="slika uz pitanje">` : ''}
         <div class="tacanOdg">Tačan odgovor: <b>${p?p.odgovor:''}</b></div>
-        <div class="btnrow"><button class="btn primary" id="sveTacno">✓ Označi sve kao tačno</button></div>
+        <div class="btnrow"><button class="btn primary" id="sveTacno">✓ Označi sve kao tačno</button>
+          <button class="btn" id="prihvatiBtn" ${brPred?'':'disabled'}>💡 Prihvati prijedloge (${brPred})</button></div>
         <div class="odglist">
-          ${odgovori.map(o=>{ const b=bojaByKey(o.boja); return `<div class="odgred" style="border-left-color:${b.hex}">
-            <span class="bojaznak" style="background:${b.hex}"></span><b>${b.naziv}</b>: <span class="odgtxt">${o.tekst}</span>
+          ${odgovori.map(o=>{ const b=bojaByKey(o.boja); const pred = predlozi(p,o); return `<div class="odgred" style="border-left-color:${b.hex}">
+            <span class="bojaznak" style="background:${b.hex}"></span><b>${b.naziv}</b>: <span class="odgtxt">${escapeHtml(o.tekst)}</span>
             <span class="ocjbtns">
-              <button class="ocj ${o.ocjena==='tacno'?'sel-t':''}" data-id="${o.id}" data-o="tacno">✓</button>
-              <button class="ocj ${o.ocjena==='pola'?'sel-p':''}" data-id="${o.id}" data-o="pola">±</button>
-              <button class="ocj ${o.ocjena==='netacno'?'sel-n':''}" data-id="${o.id}" data-o="netacno">✗</button>
+              <button class="ocj ${o.ocjena==='tacno'?'sel-t':''}${pred==='tacno'?' pred':''}" data-id="${o.id}" data-o="tacno">✓</button>
+              <button class="ocj ${o.ocjena==='pola'?'sel-p':''}${pred==='pola'?' pred':''}" data-id="${o.id}" data-o="pola">±</button>
+              <button class="ocj ${o.ocjena==='netacno'?'sel-n':''}${pred==='netacno'?' pred':''}" data-id="${o.id}" data-o="netacno">✗</button>
             </span></div>`; }).join('')}
           ${nijeOdgovorilo.map(b=>`<div class="odgred prazno" style="border-left-color:${b.hex}"><span class="bojaznak" style="background:${b.hex}"></span><b>${b.naziv}</b>: <i>nema odgovora (0 bodova)</i></div>`).join('')}
         </div>
         <button class="btn success" id="prikaziRang">${jeZadnjaRunda ? '🏆 Prikaži rang listu' : `🏆 Prikaži međurezultat (kraj Kruga ${krug})`}</button>
       </div>`;
-      document.getElementById('prevQ').onclick = ()=>stanjeRef.update({pregledPitanje:trenutno-1});
-      document.getElementById('nextQ').onclick = ()=>stanjeRef.update({pregledPitanje:trenutno+1});
+      document.getElementById('prevQ').onclick = ()=>upisiStanje({pregledPitanje:trenutno-1});
+      document.getElementById('nextQ').onclick = ()=>upisiStanje({pregledPitanje:trenutno+1});
       document.getElementById('sveTacno').onclick = async ()=>{
         if(!confirm('Označiti SVE prikazane odgovore kao tačne? Ovo prepisuje postojeće ocjene za ovo pitanje.')) return;
-        const batch = db.batch();
-        odgovori.forEach(o=>batch.update(odgovoriRef.doc(o.id), {ocjena:'tacno'}));
-        await batch.commit();
+        await grupnaOcjena(odgovori.map(o=>({id:o.id, stara:o.ocjena, nova:'tacno'})), 'sve tačno');
       };
-      document.getElementById('prikaziRang').onclick = ()=>stanjeRef.update({faza: jeZadnjaRunda ? 'rang' : 'medjurang'});
+      document.getElementById('prikaziRang').onclick = ()=>upisiStanje((jeZadnjaRunda ? {faza:'rang', otkriveno:0} : {faza:'medjurang'}));
+      document.getElementById('prihvatiBtn').onclick = ()=>{ const st = odgovori.map(o=>({id:o.id, stara:o.ocjena, nova:predlozi(p,o)})).filter(x=>x.nova); grupnaOcjena(st, 'prijedlozi ocjena'); };
       document.querySelectorAll('.ocj').forEach(btn=>{
-        btn.onclick = ()=>odgovoriRef.doc(btn.dataset.id).update({ocjena:btn.dataset.o});
+        btn.onclick = ()=>postaviOcjenu(btn.dataset.id, btn.dataset.o);
       });
     });
   }
@@ -532,16 +604,18 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
           ${imaJosRundi ? `<button class="btn primary" id="sljedecaRundaBtn">▶ Pokreni Krug ${krugZavrsen+1}</button>` : ''}
         </div>
       </div>`;
-      document.getElementById('natragBtn').onclick = ()=>stanjeRef.update({faza:'pregled'});
+      document.getElementById('natragBtn').onclick = ()=>upisiStanje({faza:'pregled'});
       const btnSljedeca = document.getElementById('sljedecaRundaBtn');
-      if(btnSljedeca) btnSljedeca.onclick = ()=>stanjeRef.update({
+      if(btnSljedeca) btnSljedeca.onclick = ()=>upisiStanje({
         trenutnoPitanje: krajRunde+1, faza:'aktivno', krug: krugZavrsen+1, timerKraj:null, timerPauzaSekunde:null
       });
     });
   }
 
   function crtajRang(){
-    odgovoriRef.get().then(snap=>{
+    Promise.all([odgovoriRef.get(), timoviRef.get()]).then(([snap, timSnap])=>{
+      const brPrijavljenih = BOJE.filter(b=>(timSnap.data()||{})[b.key]).length;
+      const otk = stanje.otkriveno==null ? brPrijavljenih : stanje.otkriveno;
       const bodovi={}; BOJE.forEach(b=>bodovi[b.key]=0);
       const bodoviPoKrugu = {}; BOJE.forEach(b=>bodoviPoKrugu[b.key]={});
       snap.forEach(d=>{
@@ -553,6 +627,7 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
       });
       const lista = BOJE.map(b=>({...b, bod:bodovi[b.key]||0, bodPoKrugu:bodoviPoKrugu[b.key]||{}})).sort((a,b)=>b.bod-a.bod);
       app.innerHTML = `<div class="wrap"><h1>🏆 Konačna rang lista</h1>
+        <div class="btnrow" style="justify-content:center"><button class="btn primary" id="otkrijBtn" ${otk>=brPrijavljenih?'disabled':''}>🎬 Otkrij sljedeće na projektoru (${Math.min(otk,brPrijavljenih)}/${brPrijavljenih})</button><button class="btn" id="otkrijSveBtn" ${otk>=brPrijavljenih?'disabled':''}>Otkrij sve</button></div>
         ${lista.map((t,i)=>{
           const detaljno = Array.from({length:brKrugova()}, (_,k)=>`R${k+1}: ${t.bodPoKrugu[k+1]||0}`).join(' · ');
           return `<div class="rangred" style="background:${t.hex};color:${tamnoText(t.key)};flex-direction:column;align-items:flex-start;gap:4px">
@@ -565,8 +640,10 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
           <button class="btn" id="pocetakBtn">⟲ Povratak na početak kviza</button>
         </div>
       </div>`;
-      document.getElementById('natragBtn').onclick = ()=>stanjeRef.update({faza:'pregled'});
-      document.getElementById('pocetakBtn').onclick = ()=>stanjeRef.update({faza:'cekanje'});
+      document.getElementById('natragBtn').onclick = ()=>upisiStanje({faza:'pregled'});
+      document.getElementById('pocetakBtn').onclick = ()=>upisiStanje({faza:'cekanje'});
+      document.getElementById('otkrijBtn').onclick = ()=>upisiStanje({otkriveno:Math.min(brPrijavljenih, otk+1)});
+      document.getElementById('otkrijSveBtn').onclick = ()=>upisiStanje({otkriveno:brPrijavljenih});
     });
   }
 }
@@ -576,6 +653,7 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
 // Dvoklik na ekran = cijeli ekran.
 function pokreniEkran(tip){
   document.body.classList.add('ekran');
+  const upravlja = params.has(TAJNA_RIJEC_NASTAVNIK);
   document.addEventListener('dblclick', ()=>{
     if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
     else document.documentElement.requestFullscreen().catch(()=>{});
@@ -589,7 +667,7 @@ function pokreniEkran(tip){
     poKrugu = d.poKrugu || PITANJA_PO_KRUGU_DEFAULT;
     crtaj();
   });
-  odgovoriRef.onSnapshot(s=>{ odgovori = s.docs.map(d=>d.data()); crtaj(); });
+  odgovoriRef.onSnapshot(s=>{ odgovori = s.docs.map(d=>({id:d.id, ...d.data()})); crtaj(); });
 
   const prijavljene = ()=>BOJE.filter(b=>timovi[b.key]);
   const ZNAK = {tacno:'✓', pola:'±', netacno:'✗'};
@@ -652,7 +730,8 @@ function pokreniEkran(tip){
     return `<div class="ek-naslov">Odgovori ekipa</div><div class="ek-lista">${lista.map(b=>{
       const o = odg.find(x=>x.boja===b.key);
       if(!o) return `<div class="ek-ekipa prazno" style="border-left-color:${b.hex}"><span class="ime">${b.naziv}</span><span class="ek-odg">bez odgovora</span></div>`;
-      return `<div class="ek-ekipa ${o.ocjena||''}" style="border-left-color:${b.hex}"><span class="ime">${b.naziv}</span><span class="ek-odg">${escapeHtml(o.tekst)}</span><span class="stat">${ZNAK[o.ocjena]||''}</span></div>`;
+      const pred = upravlja ? predlozi(pitanja.find(x=>x.broj===n), o) : null;
+      return `<div class="ek-ekipa ${o.ocjena||''}" style="border-left-color:${b.hex}"><span class="ime">${b.naziv}</span><span class="ek-odg">${escapeHtml(o.tekst)}</span><span class="stat">${ZNAK[o.ocjena]||''}</span>${upravlja ? `<span class="ek-ocj">${['tacno','pola','netacno'].map(k=>`<button class="ocj ${o.ocjena===k ? {tacno:'sel-t',pola:'sel-p',netacno:'sel-n'}[k] : ''}${pred===k?' pred':''}" data-id="${o.id}" data-o="${k}">${ZNAK[k]}</button>`).join('')}</span>` : ''}</div>`;
     }).join('')}</div>`;
   }
 
@@ -668,9 +747,146 @@ function pokreniEkran(tip){
     }).join('')}</div>`;
   }
 
+  // ----- otkrivanje pobjednika: od zadnjeg mjesta prema prvom -----
+  let zadnjeOtk = null, cekaPobjednika = false, animirajPob = false, otkTimer = null;
+  function viewOtkrivanje(){
+    const m = {}; BOJE.forEach(b=>m[b.key]=0);
+    odgovori.forEach(o=>{ m[o.boja] = (m[o.boja]||0) + (BODOVI[o.ocjena]||0); });
+    const lista = BOJE.filter(b=>timovi[b.key]).map(b=>({...b, bod:m[b.key]})).sort((a,b)=>b.bod-a.bod);
+    const N = lista.length;
+    if(!N) return `<div class="ek-naslov" style="text-align:center">Nema prijavljenih ekipa</div>`;
+    const otk = (stanje.otkriveno==null) ? N : Math.min(N, Math.max(0, stanje.otkriveno));
+    if(zadnjeOtk!==null && otk<zadnjeOtk){ cekaPobjednika = false; clearTimeout(otkTimer); }
+    const novo = zadnjeOtk!==null && otk>zadnjeOtk;
+    if(novo && otk===N){
+      cekaPobjednika = true; zvuk(); zvukBubanj();
+      clearTimeout(otkTimer);
+      otkTimer = setTimeout(()=>{ cekaPobjednika = false; animirajPob = true; zvukFanfara(); konfete(); crtaj(); }, 1900);
+    } else if(novo){ zvuk(); zvukOtkrij(N-otk); }
+    let rang = 0, prev = null;
+    const mjesta = lista.map((t,i)=>{ if(t.bod!==prev){ rang = i+1; prev = t.bod; } return rang; });
+    const redovi = lista.map((t,i)=>{
+      if(i < N-otk){
+        if(i===0 && cekaPobjednika) return `<div class="ek-rang bubanj">🥁 …</div>`;
+        return `<div class="ek-rang skriveno">${mjesta[i]}. mjesto — ?</div>`;
+      }
+      const pob = mjesta[i]===1 && otk===N && !cekaPobjednika;
+      const anim = (novo && otk<N && i===N-otk) || (animirajPob && i===0);
+      return `<div class="ek-rang${anim?' novo':''}${pob?' pobjednik':''}" style="background:${t.hex};color:${tamnoText(t.key)}"><span class="mj">${mjesta[i]}.</span>${pob?'👑 ':''}${t.naziv}<span class="bod">${t.bod}</span></div>`;
+    });
+    animirajPob = false; zadnjeOtk = otk;
+    return `<div class="ek-naslov" style="text-align:center">🏆 Konačni poredak${otk===N && !cekaPobjednika ? ' — čestitamo!' : ''}</div><div class="ek-lista">${redovi.join('')}</div>`;
+  }
+
+  // ----- upravljanje kvizom s ovog ekrana (samo uz ?zoni) -----
+  let sekunde = null, zadnjiHtml = null, skrivTimer = null, akcije = {};
+  const traka = document.createElement('div');
+  traka.id = 'kontrole';
+  const brKrugova = ()=>Math.max(1, Math.ceil(pitanja.length / poKrugu));
+  const upd = o=>upisiStanje(o);
+  const sek = ()=>sekunde || stanje.timerSekunde || 45;
+
+  if(upravlja){
+    document.body.appendChild(traka);
+    traka.addEventListener('click', e=>{
+      const b = e.target.closest('button[data-a]');
+      if(b && akcije[b.dataset.a]) akcije[b.dataset.a]();
+    });
+    app.addEventListener('click', e=>{
+      const b = e.target.closest('.ek-ocj button');
+      if(b) postaviOcjenu(b.dataset.id, b.dataset.o);
+    });
+    // kontrole se pojave na pomjeranje miša / dodir i nestanu poslije 4 s mirovanja
+    const pokazi = ()=>{
+      document.body.classList.add('kontrole');
+      clearTimeout(skrivTimer);
+      skrivTimer = setTimeout(()=>{
+        if(traka.matches(':hover') || traka.contains(document.activeElement)) pokazi();
+        else document.body.classList.remove('kontrole');
+      }, 4000);
+    };
+    ['mousemove','mousedown','touchstart','keydown'].forEach(ev=>document.addEventListener(ev, pokazi, {passive:true}));
+    pokazi();
+    document.addEventListener('keydown', e=>{
+      if(!stanje || e.target.tagName==='INPUT') return;
+      const a = akcije;
+      if(e.code==='Space'){ e.preventDefault(); (a.pauza || a.nastavi || a.timer || a.otkrij || (()=>{}))(); }
+      else if(e.key==='ArrowRight') (a.next || a.pnext || a.otkrij || (()=>{}))();
+      else if(e.key==='ArrowLeft') (a.prev || a.pprev || (()=>{}))();
+    });
+  }
+
+  function crtajKontrole(){
+    const f = stanje.faza, n = stanje.trenutnoPitanje || 1;
+    const krug = stanje.krug || Math.ceil(n/poKrugu) || 1;
+    const jeZadnjaRunda = krug >= brKrugova();
+    const zadnjeUKrugu = n % poKrugu === 0 || n >= pitanja.length;
+    const pocetakRunde = (krug-1)*poKrugu + 1;
+    const krajRunde = Math.min(krug*poKrugu, pitanja.length);
+    const akc = {};
+    let h = '';
+    const dugme = (id, tekst, klasa, fn, onemoguci)=>{
+      if(!onemoguci) akc[id] = fn;
+      h += `<button class="btn ${klasa||''}" data-a="${id}" ${onemoguci?'disabled':''}>${tekst}</button>`;
+    };
+    const unos = ()=>{ h += `<label>Sekundi: <input id="kSek" type="number" min="5" style="width:70px"></label>`; };
+
+    if(f==='cekanje'){
+      unos();
+      dugme('start', '▶ Pokreni Pitanje 1', 'primary',
+        ()=>upd({trenutnoPitanje:1, faza:'aktivno', timerSekunde:sek(), timerKraj:null, timerPauzaSekunde:null, krug:1}), pitanja.length===0);
+    } else if(f==='aktivno'){
+      const brojUKrugu = ((n-1) % poKrugu) + 1;
+      unos();
+      if(stanje.timerKraj) dugme('pauza', '⏸ Pauziraj', '',
+        ()=>upd({timerKraj:null, timerPauzaSekunde:Math.max(0, Math.round((stanje.timerKraj-Date.now())/1000))}));
+      else if(stanje.timerPauzaSekunde) dugme('nastavi', `▶ Nastavi (${stanje.timerPauzaSekunde}s)`, '',
+        ()=>upd({timerKraj:Date.now()+stanje.timerPauzaSekunde*1000, timerPauzaSekunde:null}));
+      dugme('timer', '▶ Pokreni tajmer', (stanje.timerKraj||stanje.timerPauzaSekunde) ? '' : 'primary',
+        ()=>upd({timerSekunde:sek(), timerKraj:Date.now()+sek()*1000, timerPauzaSekunde:null}));
+      dugme('prev', '← Prethodno', '', ()=>upd({trenutnoPitanje:n-1, timerKraj:null, timerPauzaSekunde:null}), brojUKrugu<=1);
+      dugme('next', zadnjeUKrugu ? `Završi ${krug}. krug → pregled` : 'Sljedeće pitanje →', 'primary',
+        zadnjeUKrugu ? ()=>upd({faza:'pregled', timerKraj:null, timerPauzaSekunde:null, pregledPitanje:pocetakRunde})
+                     : ()=>upd({trenutnoPitanje:n+1, timerKraj:null, timerPauzaSekunde:null}));
+      h += `<span class="hint">Razmak: tajmer · ← →: pitanja</span>`;
+    } else if(f==='pregled'){
+      const pq = stanje.pregledPitanje || 1;
+      dugme('pprev', '← Prethodno', '', ()=>upd({pregledPitanje:pq-1}), pq<=pocetakRunde);
+      dugme('pnext', 'Sljedeće →', '', ()=>upd({pregledPitanje:pq+1}), pq>=krajRunde);
+      const stPred = odgovori.filter(o=>o.pitanje===pq).map(o=>({id:o.id, stara:o.ocjena, nova:predlozi(pitanja.find(x=>x.broj===pq), o)})).filter(x=>x.nova);
+      dugme('prijedlozi', `💡 Prihvati prijedloge (${stPred.length})`, '', ()=>grupnaOcjena(stPred, 'prijedlozi ocjena'), !stPred.length);
+      dugme('sve', '✓ Sve tačno', '', async ()=>{
+        if(!confirm('Označiti SVE odgovore na ovom pitanju kao tačne? Ovo prepisuje postojeće ocjene.')) return;
+        await grupnaOcjena(odgovori.filter(o=>o.pitanje===pq).map(o=>({id:o.id, stara:o.ocjena, nova:'tacno'})), 'sve tačno');
+      });
+      dugme('rang', jeZadnjaRunda ? '🏆 Konačna rang lista' : `🏆 Međurezultat (kraj ${krug}. kruga)`, 'success',
+        ()=>upd((jeZadnjaRunda ? {faza:'rang', otkriveno:0} : {faza:'medjurang'})));
+      h += `<span class="hint">Ocjene: ✓ ± ✗ pored svakog odgovora</span>`;
+    } else if(f==='medjurang'){
+      dugme('nazad', '← Nazad na pregled', '', ()=>upd({faza:'pregled'}));
+      if(krug < brKrugova()) dugme('sljedeci', `▶ Pokreni ${krug+1}. krug`, 'primary',
+        ()=>upd({trenutnoPitanje:krug*poKrugu+1, faza:'aktivno', krug:krug+1, timerKraj:null, timerPauzaSekunde:null}));
+    } else if(f==='rang'){
+      const Nt = prijavljene().length, otk = stanje.otkriveno==null ? Nt : stanje.otkriveno;
+      dugme('otkrij', otk>=Nt ? '🎬 Sve otkriveno' : `🎬 Otkrij sljedeće (${otk}/${Nt})`, 'primary', ()=>upd({otkriveno:Math.min(Nt,otk+1)}), otk>=Nt);
+      dugme('otkrijSve', 'Otkrij sve', '', ()=>upd({otkriveno:Nt}), otk>=Nt);
+      dugme('nazad', '← Nazad na pregled', '', ()=>upd({faza:'pregled'}));
+      dugme('pocetak', '⟲ Povratak na početak', '', ()=>upd({faza:'cekanje'}));
+    }
+
+    akcije = akc;   // uvijek svježe funkcije, čak i kad se HTML trake ne mijenja
+    if(h !== zadnjiHtml){
+      traka.innerHTML = h; zadnjiHtml = h;
+      const inp = document.getElementById('kSek');
+      if(inp){ inp.value = sek(); inp.oninput = ()=>{ sekunde = parseInt(inp.value) || null; }; }
+    }
+  }
+
   function crtaj(){
     if(!stanje){ app.innerHTML = '<div class="ek-jedan"><div class="ek-centar ek-naslov">Učitavanje…</div></div>'; return; }
-    if(tip==='pitanje') app.innerHTML = `<div class="ek-jedan ek-sredina">${viewPitanje()}</div>`;
+    if(stanje.faza!=='rang') zadnjeOtk = null;
+    if(stanje.faza==='rang' && (tip==='sve' || tip==='rezultati')) app.innerHTML = `<div class="ek-jedan">${viewOtkrivanje()}</div>`;
+    else if(tip==='pitanje') app.innerHTML = `<div class="ek-jedan ek-sredina">${viewPitanje()}</div>`;
     else if(tip==='odgovori') app.innerHTML = `<div class="ek-jedan">${viewOdgovori()}</div>`;
     else if(tip==='rezultati') app.innerHTML = `<div class="ek-jedan">${viewRezultati()}</div>`;
     else app.innerHTML = `<div class="ek-sve">
@@ -680,6 +896,7 @@ function pokreniEkran(tip){
         <div class="ek-panel">${viewRezultati()}</div>
       </div></div>`;
     if(stanje.faza==='aktivno' && stanje.timerKraj && document.getElementById('timerNum')) pokreniTimerPrikaz(stanje.timerKraj, 'timerNum');
+    if(upravlja) crtajKontrole();
   }
 }
 
@@ -773,7 +990,7 @@ function pokreniEkipu(){
            <div class="btnrow" style="justify-content:center"><button class="btn" id="izmijeniBtn">✏️ Izmijeni odgovor</button></div>` :
           `<textarea id="odgTxt" rows="3" placeholder="Upiši odgovor..."></textarea>
            ${staviznak}
-           <div id="greskaSlanje" style="color:var(--bad);text-align:center;margin-top:8px;display:none">Greška pri slanju, pokušaj ponovo.</div>
+           <div id="greskaSlanje" style="color:var(--bad-ink);text-align:center;margin-top:8px;display:none">Greška pri slanju, pokušaj ponovo.</div>
            <div class="btnrow" style="justify-content:center"><button class="btn success" id="posaljiBtn">Pošalji odgovor</button></div>`}
       </div>`;
       if(stanje.timerKraj) pokreniTimerPrikaz(stanje.timerKraj, 'timerNum');
@@ -785,6 +1002,7 @@ function pokreniEkipu(){
         posaljiBtn.onclick = async ()=>{
           const txt = ta.value.trim();
           if(!txt) return;
+          if(VEZA.prekinuta){ const g=document.getElementById('greskaSlanje'); g.textContent='Veza prekinuta — odgovor NIJE poslan. Provjeri internet pa pokušaj ponovo.'; g.style.display='block'; return; }
           posaljiBtn.disabled = true;
           try{
             await odgovoriRef.doc(docId).set({pitanje:brojP, boja:mojaBoja, tekst:txt, ocjena:null});
@@ -805,7 +1023,7 @@ function pokreniEkipu(){
             ${stanje.timerKraj ? `<div class="timer">⏱ <span id="timerNum"></span></div>` : ''}
             <textarea id="odgTxt2" rows="3">${escapeHtml(snap.data().tekst)}</textarea>
             ${staviznak}
-            <div id="greskaSlanje2" style="color:var(--bad);text-align:center;margin-top:8px;display:none">Greška pri slanju, pokušaj ponovo.</div>
+            <div id="greskaSlanje2" style="color:var(--bad-ink);text-align:center;margin-top:8px;display:none">Greška pri slanju, pokušaj ponovo.</div>
             <div class="btnrow" style="justify-content:center"><button class="btn success" id="posaljiBtn2">Snimi izmjenu</button></div>
           </div>`;
           if(stanje.timerKraj) pokreniTimerPrikaz(stanje.timerKraj, 'timerNum');
@@ -816,6 +1034,7 @@ function pokreniEkipu(){
           btn2.onclick = async ()=>{
             const txt = ta2.value.trim();
             if(!txt) return;
+            if(VEZA.prekinuta){ const g=document.getElementById('greskaSlanje2'); g.textContent='Veza prekinuta — izmjena NIJE snimljena. Provjeri internet pa pokušaj ponovo.'; g.style.display='block'; return; }
             btn2.disabled = true;
             try{
               await odgovoriRef.doc(docId).set({pitanje:brojP, boja:mojaBoja, tekst:txt, ocjena:null});
@@ -848,6 +1067,16 @@ function pokreniEkipu(){
   }
 
   function crtajRangEkipa(){
+    const Nt = Math.max(1, BOJE.filter(b=>(timovi||{})[b.key]).length);
+    const otk = stanje.otkriveno;
+    if(otk!=null){
+      if(otk < Nt){ window.__rangMoze = false; clearTimeout(window.__rangTimer); window.__rangTimer = null; }
+      else if(!window.__rangTimer && !window.__rangMoze){ window.__rangTimer = setTimeout(()=>{ window.__rangMoze = true; crtaj(); }, 4500); }
+      if(!window.__rangMoze){
+        app.innerHTML = `<div class="wrap">${bedz()}<h1>🏆 Rang lista</h1><h2>Pogledaj projektor — pobjednici se otkrivaju!</h2><p style="color:var(--muted)">Otkriveno mjesta: ${Math.min(otk,Nt)} / ${Nt}</p></div>`;
+        vezistiPromjenuBoje(); return;
+      }
+    }
     odgovoriRef.get().then(snap=>{
       const bodovi={}; BOJE.forEach(b=>bodovi[b.key]=0);
       snap.forEach(d=>{ const o=d.data(); bodovi[o.boja]=(bodovi[o.boja]||0)+(BODOVI[o.ocjena]||0); });
@@ -859,6 +1088,162 @@ function pokreniEkipu(){
     });
   }
 }
+
+// ================== NOVO: veza, poništavanje, prijedlozi ocjena, zvuk ==================
+var VEZA = {prekinuta:false};
+function pratiVezu(){
+  var b = document.createElement('div'); b.id = 'vezaBanner';
+  b.textContent = '⚠️ Veza prekinuta — provjeri internet. Odgovori se ne šalju dok se veza ne vrati.';
+  document.body.appendChild(b);
+  var cache = false, timer = null;
+  function osvjezi(){ var off = !navigator.onLine || cache; VEZA.prekinuta = off; b.style.display = off ? 'block' : 'none'; }
+  window.addEventListener('offline', osvjezi);
+  window.addEventListener('online', function(){ cache = false; osvjezi(); });
+  stanjeRef.onSnapshot({includeMetadataChanges:true}, function(s){
+    clearTimeout(timer);
+    if(s.metadata.fromCache){ timer = setTimeout(function(){ cache = true; osvjezi(); }, 4000); }
+    else { cache = false; osvjezi(); }
+  }, function(){ cache = true; osvjezi(); });
+  osvjezi();
+}
+
+// --- poništavanje zadnje akcije (nastavnik i projektor s ?zoni) ---
+var UNDO = [], STANJE_ZADNJE = null, UNDO_KLJUCEVI = ['trenutnoPitanje','faza','pregledPitanje','krug','otkriveno'];
+function jeUpravljac(){ return ULOGA==='nastavnik' || (ULOGA==='ekran' && params.has(TAJNA_RIJEC_NASTAVNIK)); }
+function opisPromjene(p){
+  var f = {rang:'konačna rang lista', medjurang:'međurezultat', pregled:'pregled odgovora', aktivno:'prelazak na pitanja', cekanje:'povratak na početak'};
+  if(p.faza) return f[p.faza] || 'promjena faze';
+  if(p.trenutnoPitanje!==undefined) return 'promjena pitanja';
+  if(p.pregledPitanje!==undefined) return 'promjena pitanja u pregledu';
+  return 'otkrivanje mjesta';
+}
+function gurniUndo(a){ UNDO.push(a); if(UNDO.length>30) UNDO.shift(); osvjeziUndo(); }
+function upisiStanje(promjene){
+  var st = STANJE_ZADNJE;
+  if(st && Object.keys(promjene).some(function(k){ return UNDO_KLJUCEVI.indexOf(k)>=0; })){
+    var stare = {};
+    Object.keys(promjene).forEach(function(k){ stare[k] = (st[k]===undefined ? null : st[k]); });
+    gurniUndo({tip:'stanje', stare:stare, opis:opisPromjene(promjene)});
+  }
+  return stanjeRef.update(promjene);
+}
+function postaviOcjenu(id, nova){
+  return odgovoriRef.doc(id).get().then(function(s){
+    gurniUndo({tip:'ocjene', stavke:[{id:id, stara:(s.exists ? (s.data().ocjena||null) : null)}], opis:'ocjena'});
+    return odgovoriRef.doc(id).update({ocjena:nova});
+  });
+}
+function grupnaOcjena(stavke, opis){
+  if(!stavke.length) return Promise.resolve();
+  gurniUndo({tip:'ocjene', stavke:stavke.map(function(x){ return {id:x.id, stara:x.stara||null}; }), opis:opis});
+  var batch = db.batch();
+  stavke.forEach(function(x){ batch.update(odgovoriRef.doc(x.id), {ocjena:x.nova}); });
+  return batch.commit();
+}
+function ponistiZadnje(){
+  var a = UNDO.pop(); osvjeziUndo();
+  if(!a) return Promise.resolve();
+  if(a.tip==='stanje'){
+    var s = Object.assign({}, a.stare);
+    if('timerKraj' in s) s.timerKraj = (s.timerKraj && s.timerKraj > Date.now()) ? s.timerKraj : null;
+    return stanjeRef.update(s);
+  }
+  var batch = db.batch();
+  a.stavke.forEach(function(x){ batch.update(odgovoriRef.doc(x.id), {ocjena:x.stara}); });
+  return batch.commit();
+}
+function osvjeziUndo(){
+  if(!jeUpravljac()) return;
+  var btn = document.getElementById('undoBtn');
+  if(!btn){ btn = document.createElement('button'); btn.id = 'undoBtn'; btn.className = 'btn'; btn.onclick = function(){ ponistiZadnje(); }; document.body.appendChild(btn); }
+  var z = UNDO[UNDO.length-1];
+  btn.style.display = z ? 'block' : 'none';
+  if(z) btn.textContent = '↩ Poništi: ' + z.opis;
+}
+document.addEventListener('keydown', function(e){
+  if(jeUpravljac() && (e.ctrlKey||e.metaKey) && e.key && e.key.toLowerCase()==='z' && !/INPUT|TEXTAREA/.test(e.target.tagName)){ e.preventDefault(); ponistiZadnje(); }
+});
+stanjeRef.onSnapshot(function(s){ STANJE_ZADNJE = s.data(); });
+
+// --- automatsko predlaganje ocjene (nastavnik samo potvrđuje) ---
+function norm(s){
+  return String(s||'').toLowerCase().replace(/đ/g,'dj').replace(/č|ć/g,'c').replace(/š/g,'s').replace(/ž/g,'z')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+}
+function lev(a,b){
+  var m=a.length, n=b.length; if(!m) return n; if(!n) return m;
+  var p=[], i, j; for(j=0;j<=n;j++) p[j]=j;
+  for(i=1;i<=m;i++){ var prev=p[0]; p[0]=i; for(j=1;j<=n;j++){ var t=p[j]; p[j]=Math.min(p[j]+1, p[j-1]+1, prev+(a[i-1]===b[j-1]?0:1)); prev=t; } }
+  return p[n];
+}
+function slicni(a,b){
+  if(!a || !b) return false;
+  if(a===b || a.replace(/ /g,'')===b.replace(/ /g,'')) return true;
+  if(/\d/.test(a) || /\d/.test(b)) return false;   // brojevi i godine moraju biti tačni
+  var d = a.length<=4 ? 0 : (a.length<=8 ? 1 : 2);
+  return lev(a,b) <= d;
+}
+function dijelovi(s, n){
+  var d = String(s||'').split(/[,;]+/).map(norm).filter(Boolean);
+  if(n===2 && d.length===1){
+    var d2 = String(s).split(/\s+i\s+|\s*\/\s*|\s*&\s*/i).map(norm).filter(Boolean);
+    if(d2.length===2) d = d2;
+  }
+  return d;
+}
+function predlozi(p, o){
+  if(!p || !o || o.ocjena) return null;
+  var tim = String(o.tekst||'');
+  if(!norm(tim)) return null;
+  if(p.povezi || p.dva){
+    var tacni = dijelovi(p.odgovor, p.povezi ? 4 : 2);
+    if(tacni.length < 2) return null;
+    var tp = dijelovi(tim, p.povezi ? 4 : 2), pogodak = 0;
+    tacni.forEach(function(t){
+      var i = tp.findIndex(function(x){ return slicni(t, x); });
+      if(i>=0){ pogodak++; tp.splice(i,1); }
+    });
+    if(pogodak===tacni.length) return 'tacno';
+    if(pogodak>0 && pogodak*2>=tacni.length) return 'pola';
+    return null;
+  }
+  var base = String(p.odgovor||'');
+  var varijante = base.split(/\s*\/\s*|\s+ili\s+/i);
+  varijante.push(base.replace(/\([^)]*\)/g,' '));
+  var nt = norm(tim);
+  for(var k=0;k<varijante.length;k++){ if(slicni(norm(varijante[k]), nt)) return 'tacno'; }
+  return null;
+}
+
+// --- zvuk i konfete za otkrivanje pobjednika ---
+var AUDIO_CTX = null;
+function zvuk(){
+  try{ if(!AUDIO_CTX) AUDIO_CTX = new (window.AudioContext||window.webkitAudioContext)(); if(AUDIO_CTX.state==='suspended') AUDIO_CTX.resume(); }catch(e){}
+  return AUDIO_CTX;
+}
+['click','keydown','touchstart'].forEach(function(ev){ document.addEventListener(ev, function(){ zvuk(); }, {passive:true}); });
+function ton(f, t0, d, tip, v){
+  var c = AUDIO_CTX; if(!c) return;
+  var o = c.createOscillator(), g = c.createGain(), t = c.currentTime + t0;
+  o.type = tip || 'triangle'; o.frequency.value = f;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v||0.25, t+0.02); g.gain.exponentialRampToValueAtTime(0.0001, t+d);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+d+0.05);
+}
+function zvukOtkrij(k){ ton(330+k*40, 0, .18, 'triangle'); ton(440+k*40, .09, .28, 'triangle'); }
+function zvukBubanj(){ for(var i=0;i<16;i++) ton(110+i*4, i*0.11, .09, 'square', 0.10+i*0.01); }
+function zvukFanfara(){ [[523,0],[659,.15],[784,.3],[1047,.5]].forEach(function(x){ ton(x[0], x[1], .6, 'sawtooth', .16); ton(x[0]/2, x[1], .6, 'triangle', .2); }); }
+function konfete(){
+  var boje = ['#f2b705','#2563eb','#16a34a','#dc2626','#f97316','#e5e7eb'];
+  for(var i=0;i<90;i++){
+    var d = document.createElement('div'); d.className = 'konfeta';
+    d.style.left = (Math.random()*100)+'vw'; d.style.background = boje[i%boje.length];
+    d.style.animationDuration = (2.5+Math.random()*2.5)+'s'; d.style.animationDelay = (Math.random()*.8)+'s';
+    document.body.appendChild(d); setTimeout(function(el){ el.remove(); }, 6500, d);
+  }
+}
+
+pratiVezu();
+osvjeziUndo();
 </script>
 </body>
 </html>
