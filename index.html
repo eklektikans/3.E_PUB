@@ -163,6 +163,66 @@
   @media (prefers-reduced-motion:reduce){ .ek-rang.novo, .ek-rang.bubanj, .konfeta { animation:none; } }
   .ek-uputa { font-weight:900; font-size:min(2.6vw,4.6vh); margin:1.2vh 0; padding:.8vh 1.4vw; border-left:.8vh solid var(--gold); border-radius:8px; background:rgba(242,183,5,.14); }
   .ek-sve .ek-uputa { font-size:min(1.9vw,3.6vh); }
+  /* ===== NOVO: prilagodba za mobitel (uski ekrani); laptop i TV ostaju isti ===== */
+  body.ekran #undoBtn { display:none !important; }
+  #meniJezicak { display:none; }
+  @media (max-width:700px){
+    body { padding:72px 12px 90px; }
+    body.ekran { padding:0; height:auto; overflow:auto; }
+    h1 { font-size:1.9rem; margin-bottom:16px; }
+    h2 { font-size:1.4rem; }
+    .pitanje { padding:20px 16px; font-size:1.35rem; margin:14px 0 16px; }
+    .timer { font-size:3.2rem; margin-bottom:14px; }
+    .btn { padding:12px 16px; font-size:1rem; }
+    .btnrow { gap:8px; }
+    .btnrow .btn { flex:1 1 calc(50% - 8px); margin:0; }
+    .odgred { padding:12px; gap:8px; }
+    .odgtxt { flex:1 1 55%; font-size:1.05rem; overflow-wrap:anywhere; }
+    .ocjbtns { margin-left:0; width:100%; display:flex; gap:8px; }
+    .ocjbtns .ocj { flex:1; margin:0; padding:12px 0; }
+    .tacanOdg { font-size:1.1rem; }
+    .poslato { padding:22px 14px; font-size:1.5rem; }
+    .rangred { padding:14px 16px; font-size:1.1rem; }
+    .oznaka-red { gap:8px; }
+    #undoBtn { left:10px; bottom:10px; font-size:.85rem; padding:8px 12px; max-width:60vw; }
+    /* projektor "Sve na jednom" / ostali ekrani otvoreni na telefonu */
+    .ek-sve { height:auto; min-height:100vh; padding:10px 10px 200px; display:flex; flex-direction:column; gap:12px; }
+    .ek-jedan { height:auto; min-height:100vh; padding:10px 14px 200px; overflow:visible; }
+    .ek-dolje { grid-template-columns:1fr; gap:12px; }
+    .ek-panel { overflow:visible; padding:14px; border-radius:16px; }
+    .ek-pitanje, .ek-sve .ek-pitanje { font-size:1.4rem; }
+    .ek-tacan, .ek-sve .ek-tacan { font-size:1.15rem; }
+    .ek-timer, .ek-sve .ek-timer { font-size:2.6rem; }
+    .ek-dolje > .ek-panel:first-child { padding:8px 14px; gap:2px; }
+    .ek-sve .ek-naslov { margin:0; }
+    .ek-naslov, .ek-sve .ek-naslov { font-size:.95rem; }
+    .ek-ekipa, .ek-sve .ek-ekipa { font-size:1rem; padding:8px 10px; border-left-width:6px; gap:8px; flex-wrap:wrap; }
+    .ek-rang, .ek-sve .ek-rang { font-size:1.15rem; padding:10px 12px; gap:8px; }
+    .ek-ocj { gap:6px; }
+    .ek-ocj .ocj { font-size:1rem; padding:6px 12px; }
+    .ek-start, .ek-sve .ek-start { flex-direction:column; gap:12px; text-align:center; }
+    .ek-start img, .ek-sve .ek-start img { height:auto; width:min(62vw,260px); }
+    .ek-sve .ek-slika { max-height:30vh; }
+    .ekran .oznaka-krug, .ekran .oznaka-pitanje, .ekran .oznaka-tip, .ek-sve .oznaka-krug, .ek-sve .oznaka-pitanje, .ek-sve .oznaka-tip { font-size:.85rem; padding:5px 12px; }
+    .ek-uputa, .ek-sve .ek-uputa { font-size:1rem; }
+    .ek-sve .ek-lista.dvije { grid-template-columns:1fr; }
+    /* nastavnik na telefonu: jezičak ⚙ uz desnu ivicu; dodirom se izvuku tri mala dugmeta u istoj liniji */
+    body.rola-nastavnik { padding-top:16px; }
+    body.rola-nastavnik #temaBtn, body.rola-nastavnik #resetBtnGlobal, body.rola-nastavnik #fsBtn, #meniJezicak {
+      position:fixed; z-index:11; box-sizing:border-box; width:30px; height:30px; margin:0 !important; padding:0; transform:none !important;
+      display:flex; align-items:center; justify-content:center; font-size:.9rem; line-height:1; border-radius:50%; bottom:auto; }
+    body.rola-nastavnik #temaBtn, body.rola-nastavnik #resetBtnGlobal, body.rola-nastavnik #fsBtn { right:-50px; opacity:0; pointer-events:none; transition:right .2s, opacity .2s; }
+    #meniJezicak { right:-11px; top:calc(50% - 57px); opacity:.5; padding-right:11px; transition:right .2s, opacity .2s; }
+    body.rola-nastavnik #temaBtn { top:calc(50% - 19px); }
+    body.rola-nastavnik #resetBtnGlobal { top:calc(50% + 19px); }
+    body.rola-nastavnik #fsBtn { top:calc(50% + 57px); }
+    body.rola-nastavnik.meni-otvoren #temaBtn, body.rola-nastavnik.meni-otvoren #resetBtnGlobal, body.rola-nastavnik.meni-otvoren #fsBtn { right:4px; opacity:1; pointer-events:auto; }
+    body.meni-otvoren #meniJezicak { right:4px; opacity:1; padding-right:0; }
+    img[alt^="QR kod za pristup"] { width:min(52vw,210px); height:auto; }
+    /* dugmad za temu i cijeli ekran: sakrivena uz desnu ivicu, vide se samo kad dodirneš ekran */
+    body.rola-ekran #temaBtn, body.rola-ekran #fsBtn { width:38px; height:38px; font-size:1.1rem; right:-17px; top:38%; }
+    body.rola-ekran #fsBtn { top:calc(38% + 46px); }
+  }
 </style>
 
 
@@ -461,7 +521,7 @@ Pitanje 2? | Odgovor 2">${escapeHtml(sirovTekst)}</textarea>
         </div>
       </div>
       <div class="btnrow" style="justify-content:center"><span style="color:var(--muted)">Ekran za projektor:</span>
-        <a class="btn primary" href="?ekran=sve&zoni" target="_blank">Sve na jednom ekranu</a></div>
+        <a class="btn primary" href="?ekran=sve&zoni" target="_blank">Sve na jednom  ekranu</a></div>
       <div class="btnrow" style="justify-content:center"><label>Vrijeme odgovora: <input id="tsec" type="number" value="${stanje.timerSekunde}" min="5" style="width:80px"></label></div>
       <div class="btnrow" style="justify-content:center">
         <button class="btn" id="urediBtn">📝 Uredi pitanja</button>
@@ -886,6 +946,7 @@ function pokreniEkran(tip){
       dugme('pocetak', '⟲ Povratak na početak', '', ()=>upd({faza:'cekanje'}));
     }
 
+    if(UNDO.length) dugme('undo', '↩ Poništi: '+UNDO[UNDO.length-1].opis, '', ()=>ponistiZadnje());
     akcije = akc;   // uvijek svježe funkcije, čak i kad se HTML trake ne mijenja
     if(h !== zadnjiHtml){
       traka.innerHTML = h; zadnjiHtml = h;
@@ -1254,6 +1315,20 @@ function konfete(){
   }
 }
 
+// jezičak za meni (⚙) na telefonu: otvara/skriva dugmad tema, reset i cijeli ekran
+(function(){
+  if(ULOGA!=='nastavnik') return;
+  var j = document.createElement('button'); j.id = 'meniJezicak'; j.className = 'btn'; j.textContent = '⚙'; j.title = 'Meni';
+  var t = null;
+  j.onclick = function(){
+    var o = document.body.classList.toggle('meni-otvoren'); clearTimeout(t);
+    if(o) t = setTimeout(function(){ document.body.classList.remove('meni-otvoren'); }, 5000);
+  };
+  document.body.appendChild(j);
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('#meniJezicak,#fsBtn,#resetBtnGlobal,#temaBtn')) document.body.classList.remove('meni-otvoren');
+  });
+})();
 pratiVezu();
 osvjeziUndo();
 </script>
